@@ -60,7 +60,7 @@ class TrainOptions():
         self.parser.add_argument("--lr", type=float, default=0.002, help="learning rate")
         self.parser.add_argument("--channel_multiplier", type=int, default=2, help="channel multiplier factor for the model. config-f = 2, else = 1")
         self.parser.add_argument("--wandb", action="store_true", help="use weights and biases logging")
-        self.parser.add_argument("--local_rank", type=int, default=0, help="local rank for distributed training")
+        self.parser.add_argument("--local-rank", type=int, default=0, help="local rank for distributed training")
         self.parser.add_argument("--augment", action="store_true", help="apply non leaking augmentation")
         self.parser.add_argument("--augment_p", type=float, default=0, help="probability of applying augmentation. 0 = use adaptive augmentation")
         self.parser.add_argument("--ada_target", type=float, default=0.6, help="target augmentation probability for adaptive augmentation")
@@ -364,7 +364,7 @@ def train(args, loader, generator, discriminator, g_optim, d_optim, g_ema, insty
                         f"log/%s/dualstylegan-%06d.jpg"%(args.style, i),
                         nrow=int(args.n_sample ** 0.5),
                         normalize=True,
-                        range=(-1, 1),
+                        value_range=(-1, 1),
                     )
 
             if ((i+1) >= args.save_begin and (i+1) % args.save_every == 0) or (i+1) == args.iter:
